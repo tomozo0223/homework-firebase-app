@@ -3,6 +3,8 @@ body
 */
 body {
   font-family: "Noto Sans JP", sans-serif;
+  box-sizing: border-box;
+  padding: 20px;
 }
 
 /*
@@ -74,10 +76,30 @@ link
 .link {
   text-align: right;
   margin-top: 14px;
-  margin-right: 14px;
 }
 .link-item {
   margin-right: 8px;
   color: #000;
   font-size: 16px;
+}
+
+/*
+table
+*/
+.table {
+  width: 100%;
+}
+.table-head {
+  background-color: #eee;
+}
+.table-head th {
+  padding: 4px;
+  width: 15%;
+}
+.table-head th:nth-child(4) {
+  width: 55%;
+}
+.table-body td {
+  padding: 10px;
+  text-align: left;
 }
