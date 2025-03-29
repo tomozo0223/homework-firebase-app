@@ -88,6 +88,15 @@ link
   color: #000;
   font-size: 16px;
 }
+@media screen and (max-width: 768px) {
+  .link {
+    margin-top: 4px;
+  }
+  .link-item {
+    margin-right: 4px;
+    font-size: 10px;
+  }
+}
 
 /*
 table
