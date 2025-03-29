@@ -1,1 +1,0 @@
-# homework-firebase-app
