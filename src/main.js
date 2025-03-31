@@ -1,6 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs, addDoc } from "firebase/firestore";
+import { getHistoryData } from "./getHistoryData";
+import { addReportData } from "./addReportData";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -20,40 +22,12 @@ const app = initializeApp(firebaseConfig);
 // Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(app);
 
-const getHistoryData = async () => {
-
-  let report = "";
-  const querySnapShot = await getDocs(collection(db, "reports"));
-  querySnapShot.forEach((doc) => {
-    let date = doc.data().date.toDate().toLocaleString('ja-JP', { dateStyle: 'short', timeStyle: 'short' });
-    report += `<tr><td>${date}</td><td>${doc.data().name}</td><td>${doc.data().work}</td><td>${doc.data().comment}</td></tr>`;
-  });
-
-  document.getElementById("js-history").innerHTML = report;
-};
-
+// データ取得
 if (document.getElementById("js-history")) {
-  getHistoryData();
+  getHistoryData(getDocs, collection, db);
 }
 
-
-const addReportData = async (e) => {
-  e.preventDefault();
-  const formData = new FormData(e.target);
-
-  try {
-    await addDoc(collection(db, "reports"), {
-      date: new Date(),
-      name: formData.get("name"),
-      work: formData.get("work"),
-      comment: formData.get("comment")
-    });
-  } catch (e) {
-    console.error("Error :", e);
-  }
-}
-
-
+// データ追加
 if (document.getElementById("js-form")) {
-  document.getElementById("js-form").addEventListener("submit", (e) => addReportData(e));
+  document.getElementById("js-form").addEventListener("submit", (e) => addReportData(e, addDoc, collection, db));
 }
