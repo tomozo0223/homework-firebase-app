@@ -35,3 +35,25 @@ const getHistoryData = async () => {
 if (document.getElementById("js-history")) {
   getHistoryData();
 }
+
+
+const addReportData = async (e) => {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+
+  try {
+    await addDoc(collection(db, "reports"), {
+      date: new Date(),
+      name: formData.get("name"),
+      work: formData.get("work"),
+      comment: formData.get("comment")
+    });
+  } catch (e) {
+    console.error("Error :", e);
+  }
+}
+
+
+if (document.getElementById("js-form")) {
+  document.getElementById("js-form").addEventListener("submit", (e) => addReportData(e));
+}
